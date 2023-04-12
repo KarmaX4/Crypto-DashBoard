@@ -1,2 +1,2 @@
-Install Node Modules : Npm install
-run project : Npm start
+Install Node Modules : npm install                                                                                                                                          
+run project : npm start
