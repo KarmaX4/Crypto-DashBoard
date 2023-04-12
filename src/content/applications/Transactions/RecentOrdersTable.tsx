@@ -70,43 +70,6 @@ const RecentOrdersTable = ({ dataObj }) => {
     status: null
   });
 
-  //   let value = null;
-
-  //   if (e.target.value !== 'all') {
-  //     value = e.target.value;
-  //   }
-
-  //   setFilters((prevFilters) => ({
-  //     ...prevFilters,
-  //     status: value
-  //   }));
-  // };
-
-  // const handleSelectAllCryptoOrders = (
-  //   event: ChangeEvent<HTMLInputElement>
-  // ): void => {
-  //   setSelectedCryptoOrders(
-  //     event.target.checked
-  //       ? cryptoOrders.map((cryptoOrder) => cryptoOrder.symbol)
-  //       : []
-  //   );
-  // };
-
-  // const handleSelectOneCryptoOrder = (
-  //   event: ChangeEvent<HTMLInputElement>,
-  //   cryptoOrderId: string
-  // ): void => {
-  //   if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-  //     setSelectedCryptoOrders((prevSelected) => [
-  //       ...prevSelected,
-  //       cryptoOrderId
-  //     ]);
-  //   } else {
-  //     setSelectedCryptoOrders((prevSelected) =>
-  //       prevSelected.filter((id) => id !== cryptoOrderId)
-  //     );
-  //   }
-  // };
 
   const handlePageChange = (event: any, newPage: number): void => {
     setPage(newPage);
@@ -118,11 +81,12 @@ const RecentOrdersTable = ({ dataObj }) => {
 
   let navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log((e.target as Element).innerHTML);
+    const coinName:any = ((e.target as Element).innerHTML)
+    localStorage.setItem("coin",coinName)
     let path = `/management/compare`;
     navigate(path);
-    console.log(e.baseAsset);
-    
   };
   const Lastprv = usePrevious(dataObj.lastPrice);
 
@@ -168,7 +132,7 @@ const RecentOrdersTable = ({ dataObj }) => {
               </TableRow>
             )}
             {dataObj.map((dataObj) => (
-              <TableRow key={dataObj.symbol} onClick={handleClick}>
+              <TableRow key={dataObj.symbol}>
                 <TableCell>
                   <Typography
                     variant="body1"
@@ -194,7 +158,7 @@ const RecentOrdersTable = ({ dataObj }) => {
                     noWrap
                   ></Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell  onClick={handleClick}>
                   <Typography
                     variant="body1"
                     fontWeight="bold"
@@ -254,18 +218,9 @@ const RecentOrdersTable = ({ dataObj }) => {
                     />{' '}
                     {dataObj.lastPrice}
                   </Typography>
-                  {/* <Typography variant="body2" color={Lastprv>dataObj.lastPrice?"red": "green" }
-                      {dataObj.lastPrice}
-                    </Typography> */}
                 </TableCell>
-                {/* <TableCell align="right">
-                  
-                  </TableCell>
-                   */}
               </TableRow>
             ))}
-            {/* ); */}
-            {console.log(dataObj)}
           </TableBody>
         </Table>
       </TableContainer>
